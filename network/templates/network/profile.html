@@ -1,0 +1,63 @@
+{% extends 'network/layout.html' %}
+
+{% block body %}
+    <!--Displaying profile info-->
+    <div class="profile_view">
+        <h3>{{ profile.username }}</h3>
+        <h5><span class="following_span">Following: {{ num_following }}</span>  |  <span class="followers_span">Followers: {{ num_followers }}</span></h5>
+        {% if user.is_authenticated and user != profile %}
+            {% if following %}
+                <form method="post" action="{% url 'users' profile.username %}">
+                    {% csrf_token %}
+                    <input class="follow_button btn" type="submit" name="unfollow" value="Unfollow">
+                </form>
+            {% else %}
+            <form method="post" action="{% url 'users' profile.username %}">
+                {% csrf_token %}
+                <input class="follow_button btn" type="submit" name="follow" value="Follow">
+            </form>
+            {% endif %}
+        {% endif %}
+    </div><hr>
+
+    <!--Displaying posts-->
+    <h5 style="text-align: center;">Posts:</h5>
+    <div id="post_container">
+        {% for post in page_obj %}
+            <div class="post_div">
+                <div class="post">
+                    <span class="post_up"><h6>{{ post.user }}</h6><small class="post_created">{{ post.created }}</small></span>
+                    <div class="post_content_div"><p class="post_content">{{ post.content }}</p></div>
+                    {% if user.is_authenticated and user == post.user %}
+                            <div class="button_edit"><button class="edit_post_button btn btn-warning btn-sm">Edit</button></div>
+                    {% endif %}
+                    <div class="like_container">
+                        <h6><span class="like_count">{{ post.like_count }}</span> like(s).</h6>
+                        <input class="post_id_2" type="hidden" value="{{ post.id }}">
+                        {% if user.is_authenticated %}
+                            <div class="unlike_view" style="display: none;">
+                                <button class="unlike_button btn btn-danger btn-sm">Unlike</button>
+                            {% for like in likes %}
+                                {% if post == like.post %}
+                                    <input type="hidden" class="already_liked">
+                                {% endif %}
+                            {% endfor %}
+                            </div>
+                            <div class="like_view" style="display: none;">
+                                <button class="like_button btn btn-primary btn-sm">Like</button>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="edit_post" style="display: none;">
+                    <span class="post_up"><a class="profile_link" href="{% url 'users' post.user.username %}">{{ post.user }}</a><small class="post_created">{{ post.created }}</small></span>
+                    <textarea class="edited_content form-control" rows="5">{{ post.content }}</textarea>
+                    <input class="post_id" type="hidden" value="{{ post.id }}">
+                    <div class="save_edit_post"><button class="save_edit_post_button btn btn-sm btn-success">Save</button></div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+
+{% endblock %}

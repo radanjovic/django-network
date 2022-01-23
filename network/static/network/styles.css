@@ -1,0 +1,72 @@
+.body {
+    margin: 10px;
+}
+
+.new_post_form, .post, .edit_post {
+    border: 1px solid rgba(207, 205, 205, 0.658);
+    border-radius: 5px;
+    padding: 10px 50px;
+    margin: 10px;
+}
+
+.new_post_button {
+    margin-top: 10px;
+}
+
+.save_edit_post_button {
+    margin-top: 10px;
+}
+
+.save_edit_post, .new_post {
+    text-align: right;
+}
+
+.edit_post_button {
+    float: right;
+}
+
+.post_content_div {
+    padding: 10px 20px 0px 20px;;
+    text-align: justify;
+}
+
+.post_created {
+    float: right;
+}
+
+.profile_link {
+    text-decoration: none;
+    color: crimson;
+    font-size: larger;
+}
+
+.profile_view {
+    text-align: center;
+}
+
+h3 {
+    color: crimson;
+}
+
+.following_span {
+    margin-right: 20px;
+}
+
+.followers_span {
+    margin-left: 20px;
+}
+
+.follow_button {
+    margin-top: 10px;
+    background-color: #bbb2e9;
+    color: white;
+}
+
+.follow_button:hover {
+    color: white;
+    background-color: #988fc9;
+}
+
+.button_edit {
+    text-align: right;
+}
